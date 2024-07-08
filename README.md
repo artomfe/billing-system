@@ -41,7 +41,7 @@ Rode o swagger
 docker-compose exec app php artisan l5-swagger:generate
 ```
 
-Acesse em
+Acesse em:
 
 http://localhost:8989
 
