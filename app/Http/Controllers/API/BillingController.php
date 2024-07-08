@@ -35,6 +35,12 @@ class BillingController extends Controller
 
         try {
             $billings = Billing::orderBy('id', 'DESC')->paginate($perPage);
+
+            $billings->getCollection()->transform(function ($bill) {
+                $bill->status_display = $bill->status_display;
+                return $bill;
+            });
+
             return response()->json($billings, 200);
         } catch (\Exception $e) {
             return response()->json(['error' => 'Erro ao listar cobranças: ' . $e->getMessage()], 500);
