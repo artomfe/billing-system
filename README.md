@@ -22,6 +22,11 @@ Instale as dependências do projeto
 docker-compose exec app composer install
 ```
 
+** Em caso de erro, rode o comando 
+```sh
+docker-compose exec app composer require maatwebsite/excel
+```
+
 Gere a key do projeto Laravel
 ```sh
 docker-compose exec app php artisan key:generate
@@ -31,3 +36,7 @@ Rode as migrations do projeto
 ```sh
 docker-compose exec app php artisan migrate
 ```
+
+Acesse em
+
+http://localhost:8989
