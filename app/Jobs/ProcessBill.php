@@ -16,8 +16,6 @@ class ProcessBill implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
-
     protected $billing;
 
     public function __construct(Billing $billing)
@@ -28,8 +26,13 @@ class ProcessBill implements ShouldQueue
     public function handle()
     {
         try {
-            // Simulação de geração de documento de pagamento (boleto) 
-            // Uma simulação simples pois provavelmente seria uma chamada de url externa
+            // Validar se os dados necessários estão presentes
+            if (!$this->billing->id) {
+                Log::error('Dados incompletos para processamento do documento. Billing ID nulo.');
+                return;
+            }
+
+            // Simulação de geração de documento de pagamento (boleto)
             $urlBoleto = 'https://url-boleto-examplo.com.test/boleto/' . $this->billing->id;
             $codigoDeBarras = '12345678901234567890123456789012345678901234';
 
