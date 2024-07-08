@@ -37,6 +37,11 @@ Rode as migrations do projeto
 docker-compose exec app php artisan migrate
 ```
 
+Rode o swagger
+```sh
+docker-compose exec app php artisan l5-swagger:generate
+```
+
 Acesse em
 
 http://localhost:8989
