@@ -40,3 +40,14 @@ docker-compose exec app php artisan l5-swagger:generate
 Acesse em
 
 http://localhost:8989
+
+## Sobre o projeto
+
+## Estrutura do Projeto
+
+## Executando testes
+
+Executando todos os testes do projeto
+```sh
+php artisan test
+```
