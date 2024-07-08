@@ -18,6 +18,7 @@ class SendMail implements ShouldQueue
 
     public function __construct($billingId)
     {
+        $this->onQueue('processing_send_mail');
         $this->billingId = $billingId;
     }
 

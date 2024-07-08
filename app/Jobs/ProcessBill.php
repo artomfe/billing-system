@@ -20,7 +20,7 @@ class ProcessBill implements ShouldQueue
 
     public function __construct(Billing $billing)
     {
-        $this->onQueue('processing payment slip');
+        $this->onQueue('processing_payment_slip');
         $this->billing = $billing;
     }
 
@@ -46,9 +46,13 @@ class ProcessBill implements ShouldQueue
 
             $this->billing->update(['status' => Billing::STATUS_INVOICE_CREATED]);
 
-            event(new ProcessedBill($this->billing));
-
             Log::info('Documento de pagamento gerado para Billing ID: ' . $this->billing->id);
+
+            // Enfileirar o job de enviar email após o processamento do documento
+            SendMail::withChain([
+                new SendMail($this->billing->id),
+            ])->dispatch($this->billing);
+
         } catch (\Exception $e) {
             Log::error('Erro ao processar documento para Billing ID: ' . $this->billing->id . "\n" . $e->getMessage());
         }
