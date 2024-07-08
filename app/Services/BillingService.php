@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Imports\BillingImport;
+use App\Jobs\ProcessBill;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Log;
 

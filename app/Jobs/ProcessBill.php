@@ -20,13 +20,13 @@ class ProcessBill implements ShouldQueue
 
     public function __construct(Billing $billing)
     {
+        $this->onQueue('processing payment slip');
         $this->billing = $billing;
     }
 
     public function handle()
     {
         try {
-            // Validar se os dados necessários estão presentes
             if (!$this->billing->id) {
                 Log::error('Dados incompletos para processamento do documento. Billing ID nulo.');
                 return;
@@ -36,7 +36,7 @@ class ProcessBill implements ShouldQueue
             $urlBoleto = 'https://url-boleto-examplo.com.test/boleto/' . $this->billing->id;
             $codigoDeBarras = '12345678901234567890123456789012345678901234';
 
-            PaymentSlip::updateOrCreate(
+            PaymentSlip::firstOrCreate(
                 ['billing_id' => $this->billing->id],
                 [
                     'url' => $urlBoleto,
