@@ -1,6 +1,10 @@
 # Sistema de Cobranças
 
-## Passo a passo para rodar o projeto
+## Descrição
+
+Este projeto foi desenvolvido utilizando Laravel 11 e visa facilitar o gerenciamento de cobranças, processamento de boletos e envio de e-mails automatizados.
+
+## Instalação do Projeto - Passo a passo
 
 Clone o Repositório
 ```sh
@@ -41,9 +45,11 @@ Acesse em
 
 http://localhost:8989
 
-## Sobre o projeto
-
 ## Estrutura do Projeto
+
+## Documentação da API
+
+A API deste projeto está documentada usando o Swagger.
 
 ## Executando testes
 
