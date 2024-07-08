@@ -14,22 +14,29 @@ class SendMail implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    protected $boletoId;
+    protected $billingId;
 
-    public function __construct($boletoId)
+    public function __construct($billingId)
     {
-        $this->boletoId = $boletoId;
+        $this->billingId = $billingId;
     }
 
     public function handle()
     {
-        // Buscar o boleto pelo ID
-        $boleto = Billing::findOrFail($this->boletoId);
+        if (is_null($this->billingId)) {
+            Log::error('Billing ID is null. Cannot send email.');
+            return;
+        }
 
-        // Simular o envio de e-mail
+        try {
+            $boleto = Billing::findOrFail($this->billingId);
+        } catch (\Exception $e) {
+            Log::error('Billing not found with ID: ' . $this->billingId);
+            return;
+        }
+
         $emailEnviado = $this->enviarEmail($boleto->email);
 
-        // Atualizar o status do boleto se o e-mail foi enviado com sucesso
         if ($emailEnviado) {
             $boleto->update(['status' => Billing::STATUS_EMAIL_SENT]);
         }
@@ -45,11 +52,11 @@ class SendMail implements ShouldQueue
             //             ->from('seu-email@dominio.com', 'Nome do Remetente');
             // });
 
-            Log::debug('E-mail enviado com sucesso! Billing Id: ' );
+            Log::debug('E-mail enviado com sucesso! Billing ID: ' . $this->billingId);
 
             return true; 
         } catch (\Exception $e) {
-            Log::error('Falha ao enviar e-mail, Billing Id: ');
+            Log::error('Falha ao enviar e-mail, Billing ID: ' . $this->billingId);
             Log::error("Motivo: \n" . $e);
             return false; 
         }
