@@ -51,6 +51,8 @@ http://localhost:8989
 
 A API deste projeto está documentada usando o Swagger.
 
+[Link da documentação](http://localhost:8989/api/docs)
+
 ## Executando testes
 
 Executando todos os testes do projeto
