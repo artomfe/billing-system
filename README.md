@@ -45,8 +45,6 @@ Acesse em
 
 http://localhost:8989
 
-## Estrutura do Projeto
-
 ## Documentação da API
 
 A API deste projeto está documentada usando o Swagger.
@@ -59,3 +57,5 @@ Executando todos os testes do projeto
 ```sh
 php artisan test
 ```
+
+## Estrutura do Projeto
