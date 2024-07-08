@@ -1,0 +1,94 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Sistema de Cobranças API",
+        "description": "API utilizada para o Sistema de Cobranças.",
+        "contact": {
+            "name": "Support Team",
+            "email": "artomfe@gmail.com"
+        },
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/billing/process-file": {
+            "post": {
+                "tags": [
+                    "Billing"
+                ],
+                "summary": "Processa arquivo CSV de cobranças",
+                "operationId": "983b2fefb84bfa66930afd27828ddcb2",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "input_file": {
+                                        "type": "string",
+                                        "format": "binary"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Arquivo processado com sucesso"
+                    },
+                    "500": {
+                        "description": "Erro ao processar o arquivo"
+                    }
+                }
+            }
+        },
+        "/api/billings": {
+            "get": {
+                "tags": [
+                    "Billing"
+                ],
+                "summary": "Lista todas as cobranças",
+                "operationId": "925e2c8bf0aef8ef1688a50a54478646",
+                "parameters": [
+                    {
+                        "name": "per_page",
+                        "in": "query",
+                        "description": "Número de itens por página",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 10
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Listagem de cobranças",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Erro ao listar cobranças"
+                    }
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Billing",
+            "description": "Billing"
+        }
+    ]
+}
