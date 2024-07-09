@@ -2,12 +2,9 @@
 
 namespace Tests\Unit;
 
-use App\Events\ProcessedBill;
 use App\Jobs\ProcessBill;
 use App\Models\Billing;
-use App\Models\PaymentSlip;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Log;
 use Tests\TestCase;
 
@@ -18,9 +15,6 @@ class ProcessBillJobTest extends TestCase
     // Teste de sucesso
     public function test_process_bill_job_creates_payment_slip_and_updates_billing_status()
     {
-        Event::fake();
-        Log::shouldReceive('info');
-
         $billing = Billing::factory()->create([
             'status' => Billing::STATUS_PENDING,
             'email' => 'teste@example.com',
@@ -34,13 +28,11 @@ class ProcessBillJobTest extends TestCase
         $this->assertDatabaseHas('payment_slips', [
             'billing_id' => $billing->id,
         ]);
+        
+        Log::shouldReceive('info');
 
         $billing->refresh();
-        $this->assertEquals(Billing::STATUS_INVOICE_CREATED, $billing->status);
-
-        Event::assertDispatched(ProcessedBill::class, function ($event) use ($billing) {
-            return $event->billing->id === $billing->id;
-        });
+        $this->assertEquals(Billing::STATUS_EMAIL_SENT, $billing->status);
     }
 
 

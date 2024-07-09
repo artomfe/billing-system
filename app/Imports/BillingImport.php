@@ -26,9 +26,9 @@ class BillingImport implements ToModel, WithChunkReading, WithHeadingRow
 
             $billing =  Billing::create([
                 'debtID' => $row['debtid'],
-                'name' => $row['name'],
+                'name' => trim($row['name']),
                 'governmentId' => $row['governmentid'],
-                'email' => $row['email'],
+                'email' => trim($row['email']),
                 'debtAmount' => $row['debtamount'],
                 'debtDueDate' => $row['debtduedate'],
                 'status' => Billing::STATUS_PENDING,
