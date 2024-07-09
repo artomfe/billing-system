@@ -51,7 +51,7 @@ class BillingImport implements ToModel, WithChunkReading, WithHeadingRow
         return 1000; 
     }
 
-    private function isValidRow(array $row): bool
+    public function isValidRow(array $row): bool
     {
         return !empty($row['name']) && !empty($row['governmentid']) &&
                !empty($row['email']) && !empty($row['debtamount']) &&
