@@ -59,3 +59,76 @@ php artisan test
 ```
 
 ## Estrutura do Projeto
+
+```
+app/
+├── Http/
+│ ├── Controllers/
+│ │ ├── API/
+│ │ │ ├── BillingController.php 
+│ ├── Requests/
+│ │ ├── ProcessFileRequest.php 
+├── Imports/
+│ ├── BillingImport.php 
+├── Jobs/
+│ ├── ProcessBill.php 
+│ ├── SendMail.php 
+├── Models/
+│ ├── Billing.php 
+│ ├── PaymentSlip.php
+├── Services/
+│ ├── BillingService.php
+...
+tests/
+├── Feature/
+│ ├── BillingControllerTest.php
+│ ├── BillingServiceTest.php
+├── Unit/
+│ ├── BillingControllerTest.php
+│ ├── BillingServiceTest.php
+│ ├── ProcessBillJobTest.php
+│ ├── SendMailJobTest.php
+```
+
+### Controllers
+
+- **API**
+  - `BillingController.php`: Controlador da API para gerenciamento de cobranças
+
+### Requests
+
+- `ProcessFileRequest.php`: Requisição para validar os dados recebidos na Request
+
+### Diretório `Imports/`
+
+- `BillingImport.php`: Arquivo com a lógica de importação dos dados da planilha
+
+### Diretório `Jobs/`
+
+- `ProcessBill.php`: Job para processamento do documento de cobrança
+- `SendMail.php`: Job para envio de e-mails
+
+### Diretório `Models/`
+
+- `Billing.php`: Modelo de dados para cobranças
+- `PaymentSlip.php`: Modelo de dados para os boletos de pagamento
+
+### Diretório `Services/`
+
+- `BillingService.php`: Serviço para lógica de negócios relacionada as cobranças
+
+### Tests
+- **Feature**
+  - `BillingControllerTest.php`: Testes de integração para o BillingController
+  - `BillingServiceTest.php`: Testes de integração para o BillingService
+
+- **Unit**
+  - `BillingControllerTest.php`: Testes unitários para o BillingController
+  - `BillingServiceTest.php`: Testes unitários para o BillingService
+  - `ProcessBillJobTest.php`: Testes unitários para o Job de Processamento de boletos
+  - `SendMailJobTest.php`: Testes unitários para o Job de Envio de E-mails
+
+
+
+
+
